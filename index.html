@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Consistory">
+  <meta name="keywords" content="Consistory, Text-to-Image, Consistent Generation">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ConsiStory</title>
+
+<!--   Global site tag (gtag.js) - Google Analytics-->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y5ZVQZ7NHC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-Y5ZVQZ7NHC');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">ConsiStory: Training-Free Consistent <br/> Text-to-Image Generation</h1>
+          <div class="is-size-3 publication-authors">
+            <span class="author-block">
+              Anonymous Authors
+            </span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--teaser-->
+<section class="hero teaser">
+  <div class="container">
+    <div class="hero-body">
+      <h2 class="subtitle has-text-centered" style="font-size: 1.38rem; color: #1c1c1c">
+        We present <b>ConsiStory</b>, a <u>training-free approach</u> that enables <u>consistent subject generation</u> in pretrained text-to-image models.
+        It does not require finetuning or personalization, and as a result it is <b>x20 faster</b> than previous state-of-the-art methods.  
+        We enhance the model by introducing a subject-driven shared attention block and correspondence-based feature injection to promote subject consistency between images. 
+        Additionally, we develop strategies to encourage layout diversity while maintaining subject consistency.
+        ConsiStory can naturally extend to multi-subject scenarios and even enable training-free personalization for common objects.
+      </h2>
+      <img src="static/images/Teaser.jpg" alt="Teaser." style="height: 190%;"/>
+    </div>
+  </div>
+</section>
+
+<!--examples-->
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="section-title">
+        <h2 class="title is-3 is-centered">Consistent Set Generations</h2>
+      </div>
+
+      <div id="results-carousel-face" class="carousel results-carousel">
+
+        <div class="item item-puppet">
+          <div class="carousel-content">
+            <img src="static/images/slider/0.png"
+                   alt="Puppet."/>
+          </div>
+        </div>
+
+        <div class="item item-puppet">
+          <div class="carousel-content">
+            <img src="static/images/slider/1.png"
+                   alt="Puppet."/>
+          </div>
+        </div>
+
+        <div class="item item-puppet">
+          <div class="carousel-content">
+            <img src="static/images/slider/2.png"
+                   alt="Puppet."/>
+          </div>
+        </div>
+        
+        <div class="item item-puppet">
+          <div class="carousel-content">
+            <img src="static/images/slider/3.png"
+                   alt="Puppet."/>
+          </div>
+        </div>
+
+        <div class="item item-puppet">
+          <div class="carousel-content">
+            <img src="static/images/slider/4.png"
+                   alt="Puppet."/>
+          </div>
+        </div>
+        
+        <div class="item item-puppet">
+          <div class="carousel-content">
+            <img src="static/images/slider/5.png"
+                   alt="Puppet."/>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--Abstract-->
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Text-to-image models offer a new level of creative flexibility by allowing
+            users to guide the image generation process through natural language. However, using these models to consistently portray the same subject across
+            diverse prompts remains challenging. Existing approaches fine-tune the
+            model to teach it new words that describe specific user-provided subjects or
+            add image conditioning to the model. These methods require lengthy persubject optimization or large-scale pre-training. Moreover, they struggle to
+            align generated images with text prompts and face difficulties in portraying
+            multiple subjects. Here, we present <b>ConsiStory</b>, a training-free approach that
+            enables consistent subject generation by sharing the internal activations of
+            the pretrained model. We introduce a subject-driven shared attention block
+            and correspondence-based feature injection to promote subject consistency
+            between images. Additionally, we develop strategies to encourage layout
+            diversity while maintaining subject consistency. We compare ConsiStory to a
+            range of baselines, and demonstrate state-of-the-art performance on subject
+            consistency and text alignment, without requiring a single optimization step.
+            Finally, ConsiStory can naturally extend to multi-subject scenarios, and even
+            enable training-free personalization for common objects.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+<!-- Architecture -->
+<section class="hero is-light is-small">
+  <div class="container">
+    <div class="hero-body">
+        <!--/ Architecture. -->
+        <div class="section-title">
+          <h2 class="title is-3 is-centered">How does it work?</h2>
+        </div>
+        <div class="columns is-centered has-text-centered">
+          <div class="column">
+            <div class="publication-img">
+              <img id="architecture" src="static/images/Architecture.png"/>
+            </div>
+          </div>
+        </div>
+        <p>
+          <b>Architecture outline (left):</b> Given a set of prompts, at every generation step we localize the subject in each generated image 𝐼𝑖. 
+          We utilize the cross-attention maps up to the current generation step, to create subject masks 𝑀𝑖. 
+          Then, we replace the standard self-attention layers in the U-net decoder with Subject Driven Self-Attention layers that share information between subject instances. 
+          We also add Feature Injection for additional refinement. 
+          <b>Subject Driven Self-Attention (right):</b> We extend the self-attention layer so the Query from generated image 𝐼𝑖 will also have access to the Keys from all other images in the batch 
+          (𝐼𝑗,where 𝑗 ≠ 𝑖), restricted by their subject masks 𝑀𝑗. 
+          To enrich diversity we: (1) Weaken the SDSA via dropout and (2) Blend Query features with vanilla Query features from a non-consistent sampling step, yielding 𝑄∗.
+        </p>
+    </div>
+  </div>
+</section>
+
+<!-- Baseline compare -->
+<section class="section">
+  <div class="container is-max-desktop">
+
+      <div class="section-title">
+        <h2 class="title is-3">Comparison To Current Methods</h2>
+      </div>
+
+    <div class="columns is-centered">
+
+      <div class="column">
+        <div class="content">
+
+          <p>
+            We evaluated our method against IP-Adapter, TI, and DB-LORA. Some methods failed to maintain consistency (TI), or follow the
+            prompt (IP-Adapter). Other methods alternated between keeping consistency or following text, but not both (DB-LoRA). Our method successfully followed the
+            prompt while maintaining consistency  <br>
+          </p>
+            <div class="publication-img">
+              <img id="style_transfer" src="static/images/Comparison_single.png"/>
+            </div>
+        </div>
+      </div>
+      <!--/ Cross domain. -->
+
+      <!-- New domain editing. -->
+    </div>
+    <!--/ New domain editing. -->
+  </div>
+</section>
+
+<!-- Baseline Eval -->
+<section class="section">
+  <div class="container">
+
+      <div class="section-title">
+        <h2 class="title is-3">Quanitative Evaluation</h2>
+      </div>
+
+    <div class="columns is-centered">
+
+      <div class="column">
+        <div class="content">
+
+          <p>
+            <b>Automatic Evaluation (left):</b> ConsiStory (green)
+            achieves the optimal balance between Subject Consistency and Textual
+            Similarity. Encoder-based methods such as ELITE and IP-Adapter often
+            overfit to visual appearance, while optimization-based methods such as
+            LoRA-DB and TI do not exhibit high subject consistency as in our method.
+            𝑑 denotes different self-attention dropout values. Error bars are S.E.M.  <br>
+            <b>User Study (right):</b> results indicate a notable preference among participants
+            for our generated images both in regards to Subject Consistency (Visual)
+            and Textual Similarity (Textual).
+          </p>
+            <div class="publication-img">
+              <img id="style_transfer" src="static/images/eval.png"/>
+            </div>
+        </div>
+      </div>
+      <!--/ Cross domain. -->
+
+      <!-- New domain editing. -->
+    </div>
+    <!--/ New domain editing. -->
+  </div>
+</section>
+
+<!--Multi-->
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="section-title">
+      <h2 class="title is-3 is-centered">Multiple Consistent Subjects</h2>
+    </div>
+    <div class="container is-max-desktop">
+      <h2 class="subtitle has-text-centered">ConsiStory can generate image sets with multiple consistent subjects.</h2>
+
+      <div id="results-carousel-face" class="carousel results-carousel">
+
+        <div class="item item-puppet">
+          <div class="carousel-content">
+            <img src="static/images/slider_multi/0.png"
+                   alt="Puppet."/>
+          </div>
+        </div>
+
+        <div class="item item-puppet">
+          <div class="carousel-content">
+            <img src="static/images/slider_multi/1.png"
+                   alt="Puppet."/>
+          </div>
+        </div>
+
+        <div class="item item-puppet">
+          <div class="carousel-content">
+            <img src="static/images/slider_multi/2.png"
+                   alt="Puppet."/>
+          </div>
+        </div>
+        
+        <div class="item item-puppet">
+          <div class="carousel-content">
+            <img src="static/images/slider_multi/3.png"
+                   alt="Puppet."/>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ControlNet -->
+<section class="section">
+  <div class="container is-max-desktop">
+
+      <div class="section-title">
+        <h2 class="title is-3">ControlNet Integration</h2>
+      </div>
+
+    <div class="columns is-centered">
+
+      <div class="column">
+        <div class="content">
+
+          <p>
+            Our method can be integrated with ControlNet to generate a consistent character with pose control.  <br>
+          </p>
+            <div class="publication-img">
+              <img id="style_transfer" src="static/images/controlnet.png"/>
+            </div>
+        </div>
+      </div>
+      <!--/ Cross domain. -->
+
+      <!-- New domain editing. -->
+    </div>
+    <!--/ New domain editing. -->
+  </div>
+</section>
+
+<!-- Personalization -->
+<section class="hero is-light is-small">
+  <div class="container is-max-desktop">
+
+      <div class="section-title">
+        <br>
+        <h2 class="title is-3">Training-Free Personalization</h2>
+      </div>
+
+    <div class="columns is-centered">
+
+      <!-- Cross domain. -->
+      <div class="column">
+        <div class="content">
+
+          <p>
+            We utilize edit-friendly inversion
+            to invert 2 real images per subject. These inverted images used as anchors
+            in our method for training-free personalization.   <br>
+          </p>
+            <div class="publication-img">
+              <img id="bias" src="static/images/personalization.png"/>
+              <br><br>
+            </div>
+        </div>
+      </div>
+      <!--/ Cross domain. -->
+
+      <!-- New domain editing. -->
+    </div>
+    <!--/ New domain editing. -->
+  </div>
+</section>
+
+<!-- Seed Variation -->
+<section class="section">
+  <div class="container is-max-desktop">
+
+      <div class="section-title">
+        <br>
+        <h2 class="title is-3">Seed Variation</h2>
+      </div>
+
+    <div class="columns is-centered">
+
+      <!-- Cross domain. -->
+      <div class="column">
+        <div class="content">
+
+          <p>
+            Given different starting noise, ConsiStory generates different consistent set of images.  <br>
+          </p>
+            <div class="publication-img">
+              <img id="key_locking" src="static/images/seed_variation.png"/>
+              <br><br>
+            </div>
+        </div>
+      </div>
+      <!--/ Cross domain. -->
+
+      <!-- New domain editing. -->
+    </div>
+    <!--/ New domain editing. -->
+  </div>
+</section>
+
+<!--&lt;!&ndash; Cite &ndash;&gt;-->
+<!--<section class="section" id="BibTeX">-->
+<!--  <div class="container is-max-desktop content">-->
+<!--    <h2 class="title">BibTeX</h2>-->
+<!--    <p>If you find our work useful, please cite our paper:</p>-->
+<!--    <pre><code>@misc{gal2022textual,-->
+<!--      doi = {10.48550/ARXIV.2208.01618},-->
+<!--      url = {https://arxiv.org/abs/2208.01618},-->
+<!--      author = {Gal, Rinon and Alaluf, Yuval and Atzmon, Yuval and Patashnik, Or and Bermano, Amit H. and Chechik, Gal and Cohen-Or, Daniel},-->
+<!--      title = {An Image is Worth One Word: Personalizing Text-to-Image Generation using Textual Inversion},-->
+<!--      publisher = {arXiv},-->
+<!--      year = {2022},-->
+<!--      primaryClass={cs.CV}-->
+<!--}</code></pre>-->
+<!--  </div>-->
+<!--</section>-->
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="https://arxiv.org/abs/2208.01618">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/rinongal/textual_inversion" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            Website source code based on the <a href="https://nerfies.github.io/"> Nerfies</a> project page. If you want to reuse their <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a>, please credit them appropriately.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
