@@ -88,6 +88,11 @@
 <section class="hero teaser">
   <div class="container">
     <div class="hero-body">
+      <h2 style="font-size: 1.2rem;">
+        <b>TLDR</b>: We introduce a method that adapts Stable Diffusion XL (SDXL) to generate consistent subjects across a series of images, requiring no additional training. 
+      </h2>
+      <br>
+
       <h2 class="subtitle has-text-centered" style="font-size: 1.38rem; color: #1c1c1c">
         We present <b>ConsiStory</b>, a <u>training-free approach</u> that enables <u>consistent subject generation</u> in pretrained text-to-image models.
         It does not require finetuning or personalization, and as a result it is <b>x20 faster</b> than previous state-of-the-art methods.  
@@ -192,7 +197,7 @@
 
 <!-- Architecture -->
 <section class="hero is-light is-small">
-  <div class="container">
+  <div class="container" style="max-width: 70%;">
     <div class="hero-body">
         <!--/ Architecture. -->
         <div class="section-title">
@@ -201,7 +206,7 @@
         <div class="columns is-centered has-text-centered">
           <div class="column">
             <div class="publication-img">
-              <img id="architecture" src="static/images/Architecture.png"/>
+              <img id="architecture" src="static/images/architecture+FI.png" />
             </div>
           </div>
         </div>
@@ -210,9 +215,11 @@
           We utilize the cross-attention maps up to the current generation step, to create subject masks 𝑀𝑖. 
           Then, we replace the standard self-attention layers in the U-net decoder with Subject Driven Self-Attention layers that share information between subject instances. 
           We also add Feature Injection for additional refinement. 
-          <b>Subject Driven Self-Attention (right):</b> We extend the self-attention layer so the Query from generated image 𝐼𝑖 will also have access to the Keys from all other images in the batch 
+          <b>Subject Driven Self-Attention:</b> We extend the self-attention layer so the Query from generated image 𝐼𝑖 will also have access to the Keys from all other images in the batch 
           (𝐼𝑗,where 𝑗 ≠ 𝑖), restricted by their subject masks 𝑀𝑗. 
-          To enrich diversity we: (1) Weaken the SDSA via dropout and (2) Blend Query features with vanilla Query features from a non-consistent sampling step, yielding 𝑄∗.
+          To enrich diversity we: (1) Weaken the SDSA via dropout and (2) Blend Query features with vanilla Query features from a non-consistent sampling step, yielding 𝑄∗. <br>
+          <b>Feature Injection (right):</b> To further refine the subject’s identity across images, we introduce a mechanism for blending features within the batch.
+            We extract a patch correspondence map between each pair of images, and then inject features between images based on that map.
         </p>
     </div>
   </div>
@@ -254,7 +261,7 @@
   <div class="container">
 
       <div class="section-title">
-        <h2 class="title is-3">Quanitative Evaluation</h2>
+        <h2 class="title is-3">Quantitative Evaluation</h2>
       </div>
 
     <div class="columns is-centered">
@@ -446,10 +453,10 @@
   <div class="container">
     <div class="content has-text-centered">
       <a class="icon-link"
-         href="https://arxiv.org/abs/2208.01618">
+         href="">
         <i class="fas fa-file-pdf"></i>
       </a>
-      <a class="icon-link" href="https://github.com/rinongal/textual_inversion" class="external-link" disabled>
+      <a class="icon-link" href="" class="external-link" disabled>
         <i class="fab fa-github"></i>
       </a>
     </div>
