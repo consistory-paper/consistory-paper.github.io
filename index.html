@@ -118,7 +118,7 @@
 
       <h2 class="subtitle has-text-centered" style="font-size: 1.38rem; color: #1c1c1c">
         We present <b>ConsiStory</b>, a <u>training-free approach</u> that enables <u>consistent subject generation</u> in pretrained text-to-image models.
-        It does not require finetuning or personalization, and as a result it is <b>x20 faster</b> than previous state-of-the-art methods.  
+        It does not require finetuning or personalization, and as a result it takes <b>~10 seconds per generated image</b> on an H100 (x20 faster than previous state-of-the-art methods).  
         We enhance the model by introducing a subject-driven shared attention block and correspondence-based feature injection to promote subject consistency between images. 
         Additionally, we develop strategies to encourage layout diversity while maintaining subject consistency.
         ConsiStory can naturally extend to multi-subject scenarios and even enable training-free personalization for common objects.
@@ -471,7 +471,7 @@
           <p>
             The underlying SDXL model may exhibit biases towards certain ethnic groups, and our approach inherits them. 
             Our method can generate consistent subjects belonging to diverse groups when these
-            are highlighted in the prompt.
+            are provided in the prompt.
           </p>
             <div class="publication-img">
               <img id="ethnic_diversity" src="static/images/ethnic_diversity.png"/>
